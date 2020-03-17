@@ -19,7 +19,7 @@ function index(req, res) {
 }
 
 function respond(req, res) {
-  const key = req.params.key;
+  const key = req.params.key.toLowerCase();
   const to = mapping[key];
 
   if ( to ) {
@@ -35,7 +35,7 @@ function readConfig() {
   const out = {};
 
   for ( const key of paths ) {
-    const name = key.split('/').slice(1).join('/');
+    const name = key.split('/').slice(1).map(x => x.toLowerCase()).join('/');
     const value = fs.readFileSync(key).toString('utf8').trim();
     out[name] = value;
   }
