@@ -19,7 +19,8 @@ function index(req, res) {
 }
 
 function respond(req, res) {
-  const key = req.params.key.toLowerCase();
+  // Keys are case-insensitive, and drop a semicolon at the end because meeting requests always have one and Slack links it
+  const key = req.params.key.toLowerCase().replace(/;$/, '');
   const to = mapping[key];
 
   if ( to ) {
